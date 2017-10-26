@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"	
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	 http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+	 http://www.springframework.org/schema/aop  http://www.springframework.org/schema/aop/spring-aop.xsd
+	  http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+<!--开启全局扫描  -->
+ <context:component-scan base-package="com.zhidi.controller"/>
+  <!-- 给返回的对象添加前缀和后缀，如果不添加的话要返回全路径 -->
+ <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+  <property name="prefix"  value="/WEB-INF/page/"/>
+  <property name="suffix" value=".jsp"/>
+ </bean>
+  <!-- 注解驱动 -->
+ <mvc:annotation-driven conversion-service="conversionService"/>
+ <!-- 时间类型转换工具库 -->
+ <bean id="converter" class="com.zhidi.util.DateConverter"/>
+ <!-- 时间转换器工厂要将工具库据为己有-->
+ <bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+ <property name="converters" ref="converter"/>
+ </bean>
+  
+ 
+ </beans>

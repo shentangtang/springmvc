@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+         xmlns="http://java.sun.com/xml/ns/javaee" 
+          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
+	
+	<!-- spring 前端控制器式一个特许的servlet -->
+	<servlet>
+		<servlet-name>springmvc</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<!-- 初始化 spring-mvc.xml文件的路径问题 默认的式在WEB-INF下面的<servlet-name>-servlet.xml -->
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>classpath:spring-mvc.xml</param-value>
+		</init-param>
+		<!-- 如果不设置值的情况下会默认不加载，在设置非负数的整数时会加载，值越小就越先加载 -->
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<!-- 为对应的servlet配置一个拦截器 -->
+	<servlet-mapping>
+		<servlet-name>springmvc</servlet-name>
+		<!-- 只有在后缀有.do的才会进入 -->
+		<url-pattern>*.do</url-pattern>	
+	</servlet-mapping>
+	<filter>
+	<filter-name>encoding</filter-name>
+	<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+	<init-param>
+	<!-- 初始化字符集  -->
+	<param-name>encoding</param-name>
+	<param-value>UTF-8</param-value>	
+	</init-param>
+	<init-param>
+	<!-- 初始化字符集生效 -->
+	<param-name>forceEncoding</param-name>
+	<param-value>true</param-value>
+	</init-param>
+	</filter>
+	<!-- 配置字符集可以到底的地点 -->
+	<filter-mapping>
+	  <filter-name>encoding</filter-name>
+	  <url-pattern>/*</url-pattern>
+	</filter-mapping>
+	<!-- 以下是错误信息跳转页面 -->
+	<error-page>
+	<error-code>400</error-code>
+	<location>/error/400.jsp</location>
+	</error-page>
+	<error-page>
+	<error-code>404</error-code>
+	<location>/error/404.jsp</location>
+	</error-page>
+	<error-page>
+	<error-code>405</error-code>
+	<location>/error/405.jsp</location>
+	</error-page>
+	<error-page>
+	<error-code>500</error-code>
+	<location>/error/500.jsp</location>
+	</error-page>
+	
+   
+</web-app>
